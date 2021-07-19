@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"REST-APP-GO/models"
+	"REST-API-GO/models"
 
 
 	"github.com/gocql/gocql"
