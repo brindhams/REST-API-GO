@@ -1,10 +1,11 @@
 package database
 
 import (
-	"log"
+    "log"
     "fmt"
 
-	"github.com/gocql/gocql")
+	"github.com/gocql/gocql"
+)
 
 
 type DBConnection struct {
