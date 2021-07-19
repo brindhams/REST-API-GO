@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"handlers"
+	"REST-API-GO/handlers"
 
 	"github.com/gorilla/mux"
 )
