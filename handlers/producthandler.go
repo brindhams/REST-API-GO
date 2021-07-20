@@ -1,9 +1,10 @@
-package handler
+package handlers
 
 import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 
 	"restapi.go/models"
 
@@ -17,6 +18,7 @@ func init() {
 
 	cluster := gocql.NewCluster("127.0.0.1")
 	cluster.ProtoVersion = 3
+	cluster.ConnectTimeout = time.Second *10
 	cluster.Keyspace = "ecommerce"
 	Session, err = cluster.CreateSession()
 	if err != nil {
@@ -35,7 +37,7 @@ func Getallproducts(w http.ResponseWriter, r *http.Request) {
 			Name:        m["name"].(string),
 			Description: m["description"].(string),
 			Category:    m["category"].(string),
-			Price:       m["price"].(float64),
+		    Price:       m["price"].(float64),
 		})
 		m = map[string]interface{}{}
 	}
