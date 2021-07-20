@@ -4,30 +4,30 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"restapi.go/models"
 
+	"restapi.go/models"
 
 	"github.com/gocql/gocql"
 )
-	
+
 var Session *gocql.Session
 
 func init() {
 	var err error
-	
+
 	cluster := gocql.NewCluster("127.0.0.1")
-    cluster.ProtoVersion = 3
+	cluster.ProtoVersion = 3
 	cluster.Keyspace = "ecommerce"
-    Session, err =cluster.CreateSession()
-    if err !=nil {
+	Session, err = cluster.CreateSession()
+	if err != nil {
 		panic(err)
-    }
-    fmt.Println("cassandra initialized")
+	}
+	fmt.Println("cassandra initialized")
 }
 
 func Getallproducts(w http.ResponseWriter, r *http.Request) {
 	var products []models.Products
-	m :=map[string]interface{}{}
+	m := map[string]interface{}{}
 	iter := Session.Query("SELECT * FROM products").Iter()
 	for iter.MapScan(m) {
 		products = append(products, models.Products{
@@ -42,7 +42,5 @@ func Getallproducts(w http.ResponseWriter, r *http.Request) {
 
 	Conv, _ := json.MarshalIndent(products, "", " ")
 	fmt.Fprintf(w, "%s", string(Conv))
-	
+
 }
-
-
